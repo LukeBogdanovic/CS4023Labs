@@ -1,0 +1,31 @@
+#include <pthread.h>
+ #include <stdio.h>
+#include<stdlib.h>
+
+ void *PrintHello(void *threadid)
+ {
+    long tid;
+    tid = (long)threadid;
+    printf("Hello World! It's me, thread #%ld!\n", tid);
+    printf("  Part 2 of the message from thread #%ld!\n",tid);
+    pthread_exit(NULL);
+ }
+
+ int main (int argc, char *argv[])
+ {
+   int nt = atoi(argv[1]);
+    pthread_t threads[nt];
+    int rc;
+    long t;
+    for(t=0; t<nt; t++){
+       printf("In main: creating thread %ld\n", t);
+       rc = pthread_create(&threads[t], NULL, PrintHello, (void *)t);
+       if (rc){
+          printf("ERROR; return code from pthread_create() is %d\n", rc);
+          exit(-1);
+       }
+    }
+
+    /* Last thing that main() should do */
+    pthread_exit(NULL);
+ }

@@ -1,0 +1,6 @@
+#ifndef utils_H_
+#define utils_H_
+
+char flipChar(char c);
+
+#endif /*defined(_Card_utils_)*/
